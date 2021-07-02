@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Link Generator</title>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    font-family:'Poppins'
+}
+.title{
+    text-align: center;
+    text-align: center;
+    margin: 30px auto;
+    color: #fff;
+    font-weight: 700;
+    font-size: 40px;
+    text-shadow: 0 5px 6px #3c3c3c29;
+    position: relative;
+    z-index: 1;
+}
+.background {
+    position: fixed;
+    top:0;
+    right:0;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* .background{
+    min-height: 100vh;
+    min-width: 100vw;
+    position: absolute;
+    z-index: 0;
+    background: linear-gradient(130deg, #4facfe, #00f2fe, #2f6fe3);
+    background-size: 200% 200%;
+    -webkit-animation: Animation 5s ease infinite;
+    -moz-animation: Animation 5s ease infinite;
+    animation: Animation 5s ease infinite;
+}
+
+@-webkit-keyframes Animation {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+}
+@-moz-keyframes Animation {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+}
+@keyframes Animation { 
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+} */
+    
+
+.card-container{
+    /* z-index: 1; */
+    display: block;
+    background-color: #fff;
+    box-shadow: 0 5px 6px #00000030;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    padding: 5px 20px;
+    position: relative;
+    z-index: 1;
+    min-height: 100px;
+    transition: all 0.35s ease-in-out;
+}
+.instruction{
+    font-size:20px;
+    text-align: left;
+    margin:10px auto 5px;
+    font-weight: 600;
+    color: #2f6fe3
+}
+.instruction-desc{
+    font-size: 16px;
+    color: #3c3c3c;
+    font-weight: 300;
+    margin-bottom: 40px;
+    line-height: 20px;
+}
+button.selection-btn {
+    padding: 10px 20px;
+    border-radius: 40px;
+    margin-bottom: 10px;
+    outline: none;
+    background: #2f6fe3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s ease-in-out;
+    min-width: 100px;
+}
+button.selection-btn:hover{
+    box-shadow: 0 5px 6px #00000030;
+}
+button.secondary{
+    border:1px solid #2f6fe3;
+    background-color: #fff;
+    color: #2f6fe3;
+}
+
+
+
+.footer{
+    display: block;
+    position: fixed;
+    bottom:0;
+    right: 0;
+    text-align: right;
+    font-size: 12px;
+    color:#3c3c3c;
+    background-color: #ffffffc2;
+    width: 100%;
+    padding: 10px 5px;
+    z-index: 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.user-input{
+    min-width: 90%;
+    margin: auto;
+    padding:10px 15px;
+    margin-bottom:10px;
+}
+.user-input::placeholder{
+    color:#ccc
+}
+.user-input:focus{
+    outline: none;
+}
+.hide-alert{
+    display: none;
+}
+.alert-text{
+    display: inline;
+    color:red;
+    font-size:12px;
+}
+.alert-box{
+    border:1px solid red;
+}
+button.restart-btn {
+    padding: 10px;
+    background: #fff;
+    text-decoration: underline;
+    border: none;
+    color: #2f6fe3;
+}
+/* cheap phone-mockup */
+.phone-structure{
+    background: #fff;
+    border: 1px solid #ddd;
+    width: 250px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 6px #ddd;
+    padding: 20px 10px;
+    min-height: 440px;
+}
+.top-bar {
+    background: #ededed;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
+}
+.receiver-img{
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #fff;
+    background-image: url(./img/doctoroncall-logo.png);
+    background-size: 73%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.receiver-number{
+    font-size: 12px;
+    font-weight: 500;
+}
+.message-screen {
+    height: 310px;
+    overflow: scroll;
+    background-color: #ece5dd;
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.message-buble {
+    background-color: #dcf8c6;
+    height: fit-content;
+    padding: 10px 15px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px #0000002e;
+    max-width: 80%;
+    font-size: 12px;
+}
+.bottom-bar{
+    /* width: 100%; */
+    padding: 10px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background: #ededed;
+    border-radius: 0 0 5px 5px;
+}
+.text-bar{
+    background-color: #fff;
+    height: 30px;
+    border-radius: 40px;
+    width: 90%;
+}
+.send-icon {
+    width: 7%;
+    margin: auto;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.send-icon svg{
+    fill:#ddd;
+}
+</style>
+<body>
+    <div class="background"></div>
+    <h1 class="title">WhatsApp Link Generator </h1>
+    <div id="container" class="card-container">
+        <!-- step 1 -->
+        <div class="instruction">
+            1. Choose Mobile Number
+        </div>
+        <div class="instruction-desc">
+            Which number would you like for the customer to reach out to you?
+        </div>
+        <!-- <select name="numberType" id="numberType" onchange="getWhatsAppContents()">
+            <option value="" disabled selected>Select phone number</option>
+            <option value="generic">DOC Official WhatsApp</option>
+            <option value="other">Personal PCC WhatsApp (NOT RECOMENDED)</option>
+        </select> -->
+        <button class="selection-btn primary" onclick="getWhatsAppContents('generic')">DOC's Official WhatsApp</button>
+        <button class="selection-btn secondary" onclick="getWhatsAppContents('PCC')">
+            Others
+        </button>
+    
+    <!-- step 2 -->
+    <!-- <div class="instruction">
+        2. Enter Phone Number and Prefilled Text
+    </div>
+    <div class="instruction-desc">
+        Enter the phone number that you wish for customer to reach out to you. 
+    </div>
+            <label for="mobile" class="input-label">Phone Number <span id="mobileAlertText" class="hide-alert">This Cant Be Empty</span> </label>
+            <input type="number" name="mobile" id="mobile" class="user-input" placeholder="01x xxx xxxx" onclick="hideAlert(this.id)">
+            <br>
+            <label for="prefilledText" class="input-label">Prefilled Text <span id="prefilledTextAlertText" class="hide-alert">This Cant Be Empty</span></label>
+            <textarea name="prefilledText" id="prefilledText" cols="30" rows="10" class="user-input" placeholder="Example: “Hello, I want more info about the product”" autofilled onclick="hideAlert(this.id)"></textarea>
+            <button onclick="generateLink()" class="selection-btn primary">Preview & Generate Link</button> -->
+
+    <!-- step 3 -->
+
+    <!-- <div class="instruction">Preview</div>
+    <div class="phone-structure">
+        <div class="phone-screen">
+            <div class="top-bar">
+                <div class="receiver-img">
+                </div>
+                <div class="receiver-number">
+                    ${phoneNumber}
+                </div>
+            </div>
+            <div class="message-screen">
+                <div class="message-buble">
+                    ${str}
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <div class="text-bar"></div>
+                <div class="send-icon">
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg viewBox="0 0 448.011 448.011"  xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M438.731,209.463l-416-192c-6.624-3.008-14.528-1.216-19.136,4.48c-4.64,5.696-4.8,13.792-0.384,19.648l136.8,182.4
+                                l-136.8,182.4c-4.416,5.856-4.256,13.984,0.352,19.648c3.104,3.872,7.744,5.952,12.448,5.952c2.272,0,4.544-0.48,6.688-1.472
+                                l416-192c5.696-2.624,9.312-8.288,9.312-14.528S444.395,212.087,438.731,209.463z"/>
+                        </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    <div>
+        <div class="instruction">GeneratedLink</div>
+        <textarea id="GeneratedLink" cols="30" rows="10" class="user-input">${generatedLink}</textarea>
+        <div class="buttons-container">
+            <button class="selection-btn primary" onclick="CopyLink()">Copy</button>
+            <button class="selection-btn secondary" onclick="OpenLink()">Test</button>
+        </div>
+        <button class="restart-btn" onclick="location.reload();">< Restart</button>
+    </div>-->
+</div>
+    
+<div class="footer">
+    Website developed by <a href="https://api.whatsapp.com/send/?phone=60123537641&text=I%20have%20question%20regarding%20the%20WhatsApp%20link%20generator!&app_absent=0" target="_blank" rel="noopener noreferrer">Hijazi Ahmad</a>
+</div>
+</body>
+<script>
+
+var generatedLink,phoneNumber,str,encodedStr=""
+    function getWhatsAppContents(input){
+        // var ans = document.getElementById("numberType").value
+        // console.log(document.getElementById("numberType").value)
+        // document.getElementById("step1").classList.toggle("hide")
+
+        let ContentTemplate=`    <div class="instruction">
+        2. Enter Phone Number and Prefilled Text
+    </div>
+    <div class="instruction-desc">
+        Enter the phone number that you wish for customer to reach out to you. 
+    </div>
+            <label for="mobile" class="input-label">Phone Number <span id="mobileAlertText" class="hide-alert">This Cant Be Empty</span> </label>
+            <input type="number" name="mobile" id="mobile" class="user-input" placeholder="01x xxx xxxx" onclick="hideAlert(this.id)">
+            <br>
+            <label for="prefilledText" class="input-label">Prefilled Text <span id="prefilledTextAlertText" class="hide-alert">This Cant Be Empty</span></label>
+            <textarea name="prefilledText" id="prefilledText" cols="30" rows="10" class="user-input" placeholder="Example: “Hello, I want more info about the product”" autofilled onclick="hideAlert(this.id)"></textarea>
+            <button onclick="generateLink()" class="selection-btn primary">Preview & Generate Link</button>`
+        document.getElementById("container").innerHTML=ContentTemplate;
+
+        if (input=="generic"){
+
+            document.getElementById("mobile").value="60384082000"
+        }
+    }
+    function generateLink(){
+         phoneNumber = document.getElementById("mobile").value;
+        if (phoneNumber){
+            // console.log(phoneNumber[0])
+            if(phoneNumber[0]!="6"){
+                console.log('phone number changed')
+                phoneNumber=`6${phoneNumber}`;
+                console.log('phone number changed',phoneNumber)
+            }
+        }
+        if (phoneNumber==undefined || phoneNumber==""){
+            showAlert("mobile");
+        }
+        
+
+
+        str = document.getElementById("prefilledText").value
+        if (str==""){
+            showAlert("prefilledText");
+        }
+        encodedStr=encodeURI(str);
+        generatedLink=`https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodedStr}&app_absent=0`
+        console.log(generatedLink)
+
+        if (str!="" && phoneNumber!=""){
+            showLink();
+        }
+
+    }
+    function showAlert(input){
+        document.getElementById(input).classList.toggle("alert-box");
+        document.getElementById(`${input}AlertText`).classList.toggle("alert-text")
+    }
+    function hideAlert(input){
+        document.getElementById(input).classList.remove("alert-box");
+        document.getElementById(`${input}AlertText`).classList.remove("alert-text")
+    }
+    function showLink(){
+        var decodedURI=decodeURI(encodedStr);
+        decodedURI = decodedURI.replaceAll("\n","</br>")
+        console.log('phone number in show link',phoneNumber)
+        document.getElementById("container").innerHTML=`    <div class="instruction">Preview</div>
+    <div class="phone-structure">
+        <div class="phone-screen">
+            <div class="top-bar">
+                <div class="receiver-img">
+                </div>
+                <div class="receiver-number">
+                    ${phoneNumber}
+                </div>
+            </div>
+            <div class="message-screen">
+                <div class="message-buble">
+                    ${decodedURI}
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <div class="text-bar"></div>
+                <div class="send-icon">
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg viewBox="0 0 448.011 448.011"  xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M438.731,209.463l-416-192c-6.624-3.008-14.528-1.216-19.136,4.48c-4.64,5.696-4.8,13.792-0.384,19.648l136.8,182.4
+                                l-136.8,182.4c-4.416,5.856-4.256,13.984,0.352,19.648c3.104,3.872,7.744,5.952,12.448,5.952c2.272,0,4.544-0.48,6.688-1.472
+                                l416-192c5.696-2.624,9.312-8.288,9.312-14.528S444.395,212.087,438.731,209.463z"/>
+                        </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="instruction">GeneratedLink</div>
+        <textarea id="GeneratedLink" cols="30" rows="5" class="user-input">${generatedLink}</textarea>
+        <div class="buttons-container">
+            <button class="selection-btn primary" onclick="CopyLink()">Copy</button>
+            <button class="selection-btn secondary" onclick="OpenLink()">Test</button>
+        </div>
+        <button class="restart-btn" onclick="location.reload();">< Restart</button>
+    </div>`;
+        // document.getElementById("phoneNumber").innerHTML=phoneNumber;
+        // document.getElementById("message").innerHTML=str;
+        // document.getElementById("GeneratedLink").innerHTML=generatedLink
+
+    }
+
+    function CopyLink(){
+        /* Get the text field */
+        var copyText = document.getElementById("GeneratedLink");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        alert("link copied!")
+    }
+
+    function OpenLink(){
+        window.open(
+        `${generatedLink}`,
+        '_blank' // <- This is what makes it open in a new window.
+        );
+    }
+
+</script>
+
+</html>
